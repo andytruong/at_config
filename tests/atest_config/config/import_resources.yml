@@ -1,0 +1,2 @@
+imports:
+  - { resource: to_be_imported.yml }
