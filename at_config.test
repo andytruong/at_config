@@ -1,0 +1,31 @@
+<?php
+
+class At_Config_TestCase extends DrupalUnitTestCase {
+  public function getInfo() {
+    return array(
+      'name' => 'AT Config',
+      'description' => "Make sure the at_config() is working correctly.",
+      'group' => 'Andy  Truong'
+    );
+  }
+
+  public function setUp() {
+    parent::setUp('atest_config');
+  }
+
+  public function testConfigGet() {
+    $foo = at_config('%atest_config%')->get('foo');
+    $this->assertEquals($foo, 'bar');
+
+    try {
+      $not_there = at_config('%atset_config%')->get('not_there');
+      $this->assertTrue('No exception thrown');
+    }
+    catch (\Drupal\at_config\NotFoundException $e) {
+      $this->assertTrue('Throw NotFoundException if config item is not configured.');
+    }
+
+    $imported_data = at_config('%atest_config%/import_resources')->get('imported_data');
+    $this->assertEquals($imported_data, 'imported_data');
+  }
+}
