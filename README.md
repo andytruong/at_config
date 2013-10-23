@@ -15,7 +15,6 @@ Usages
 
 ```
 echo at_config('%atest_config%')->get('foo'); // bar
-
 ```
 
 Check more examples at At_Config_TestCase::testConfigGet()
