@@ -1,5 +1,8 @@
 <?php
 
+use \Drupal\at_config\Resolver;
+use \Drupal\at_config\Config;
+
 /**
  * Usage
  *
@@ -9,14 +12,14 @@
  * // Lookup at /path/to/my_module/config/templates.yml > email.notify
  * $mail_notify_template = at_config('%my_module%.templates')->get('email.notify');
  *
- * @param  string  $id      Config ID
- * @param  boolean $refresh Build new cache
- * @return \Drupal\at_config\Config
+ * @param  string  $id        Config ID
+ * @param  boolean $refresh   Build new cache
+ * @return Config
  */
 function at_config($id, $refresh = FALSE) {
   $options['ttl'] = '+ 15 minutes';
   $options['cache_id'] = "at_config:{$id}";
   return go_cache($options, function() use ($id) {
-    return go_id(new \Drupal\at_config\Resolver($id))->getConfigObject();
+    return go_id(new Resolver($id))->getConfigObject();
   });
 }
