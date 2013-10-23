@@ -14,9 +14,24 @@ class At_Config_TestCase extends DrupalUnitTestCase {
   }
 
   public function testConfigGet() {
+    // Test getModule()
+    $this->assertEquals('atest_config', at_config('%atest_config%')->getModule());
+
+    // Test getPath(), case #1
+    $expected_path = drupal_get_path('module', 'atest_config') . '/config/atest_config.yml';
+    $actual_path = at_config('%atest_config%')->getPath();
+    $this->assertEquals($expected_path, $actual_path);
+
+    // Test getPath(), case #2
+    $expected_path = drupal_get_path('module', 'atest_config') . '/config/to_be_imported.yml';
+    $actual_path = at_config('%atest_config%.to_be_imported')->getPath();
+    $this->assertEquals($expected_path, $actual_path);
+
+    // Test simple value getting
     $foo = at_config('%atest_config%')->get('foo');
     $this->assertEquals($foo, 'bar');
 
+    // Test not found exception
     try {
       $not_there = at_config('%atset_config%')->get('not_there');
       $this->assertTrue('No exception thrown');
@@ -25,6 +40,7 @@ class At_Config_TestCase extends DrupalUnitTestCase {
       $this->assertTrue('Throw NotFoundException if config item is not configured.');
     }
 
+    // Test import data
     $imported_data = at_config('%atest_config%/import_resources')->get('imported_data');
     $this->assertEquals($imported_data, 'imported_data');
   }
