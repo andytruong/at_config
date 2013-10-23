@@ -1,21 +1,24 @@
 <?php
 namespace Drupal\at_config;
 
-class Resolver {
+class Resolver implements ResolverInterface {
   /**
-   * [$id description]
-   * @var [type]
+   * @var Config
    */
-  private $id;
+  private $config;
+
+  public function setConfig($config) {
+    $this->config = $config;
+  }
 
   /**
-   * Path to configuration value.
-   *
-   * @var string
+   * [getModule description]
+   * @return [type] [description]
    */
-  private $path;
-
-  public function __construct($id) {
+  public function getModule() {
+    if (preg_match('`%([a-z_]+)%`', $this->config->getId(), $matches)) {
+      return module_exists($matches[1]) ? $matches[1] : FALSE;
+    }
   }
 
   /**
@@ -23,13 +26,10 @@ class Resolver {
    * @return [type] [description]
    */
   public function getPath() {
-    if (!$this->path) {
-      if ($path = $this->getOverridePath()) {
-        return $path;
-      }
-      return $this->getOriginalPath();
+    if ($path = $this->getOverridePath($this->config->getId(), $this->config->getModule())) {
+      return $path;
     }
-    return $this->path;
+    return $this->getOriginalPath($this->config->getId(), $this->config->getModule());
   }
 
   /**
@@ -37,6 +37,17 @@ class Resolver {
    * @return [type] [description]
    */
   public function getOriginalPath() {
+    $config_id = $this->config->getId();
+    $path .= DRUPAL_ROOT . '/' . conf_path();
+    if (module_exists($this->config->getModule())) {
+      $config_id = str_replace("%". $this->config->getModule() ."%", '', $config_id);
+      $config_id = trim($config_id, '/');
+      $config_id = empty($config_id) ? $this->config->getModule() : $config_id;
+      $path = DRUPAL_ROOT . '/' . drupal_get_path('module', $this->config->getModule());
+    }
+    $config_id = trim(str_replace('.', '/', $config_id), '/');
+    $path .= '/config/' . $config_id . '.yml';
+    return is_file($path) ? $path : FALSE;
   }
 
   /**
@@ -47,10 +58,12 @@ class Resolver {
   }
 
   /**
-   * [getValue description]
+   * [fetchData description]
+   *
    * @return [type] [description]
    */
-  public function getConfigObject() {
-    return new Config($path = $this->getPath());
+  public function fetchData() {
+    require_once DRUPAL_ROOT . '/sites/all/libraries/spyc/Spyc.php';
+    return spyc_load_file($this->getPath());
   }
 }

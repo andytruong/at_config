@@ -1,12 +1,20 @@
 I have an idea, will implement this later on my free time.
 
-This module introduce an other way for Drupal configuration, which is inspired 
+This module introduce an other way for Drupal configuration, which is inspired
 by Symfony2 framework.
 
+Install
+---
+
+Spyc.php is needed to read yaml files.
+
+  Download Spyc.php (http://goo.gl/kMwPil) to sites/all/libraries/spyc/Spyc.php
+
 Planned Features:
+---
 
 - APC/Memcache cache
-- Able to embed config from 
+- Able to embed config from
 - Glob imports
 - Overridable configuration in module/theme
 
@@ -51,7 +59,7 @@ function my_function() {
     $config_value = at_config('%my_module%/seo.pages.entity', $refresh = FALSE, $user_original = FALSE);
   }
   catch (\UnexpectedValueException $e) {
-  }  
+  }
 }
 ````
 

@@ -15,11 +15,16 @@ use \Drupal\at_config\Config;
  * @param  string  $id        Config ID
  * @param  boolean $refresh   Build new cache
  * @return Config
+ * @todo   Will remove when at_di.module is ready.
  */
 function at_config($id, $refresh = FALSE) {
-  $options['ttl'] = '+ 15 minutes';
-  $options['cache_id'] = "at_config:{$id}";
-  return go_cache($options, function() use ($id) {
-    return go_id(new Resolver($id))->getConfigObject();
-  });
+  $resolver =  new Resolver();
+  return new Config($id, $resolver);
+}
+
+/**
+ * Implements hook_go_api()
+ */
+function at_config_go_api() {
+  return array('api' => '1.0');
 }
