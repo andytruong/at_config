@@ -1,5 +1,3 @@
-I have an idea, will implement this later on my free time.
-
 This module introduce an other way for Drupal configuration, which is inspired
 by Symfony2 framework.
 
