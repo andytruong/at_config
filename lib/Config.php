@@ -58,7 +58,7 @@ class Config {
 
     $options['ttl'] = '+ 1 year';
     $options['cache_id'] = "at_config:data:{$id}";
-    $this->config_data = go_cache($options, function() use ($resolver) {
+    $this->config_data = at_cache($options, function() use ($resolver) {
       return $resolver->fetchData();
     });
   }
