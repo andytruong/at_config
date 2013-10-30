@@ -47,12 +47,11 @@ class Resolver implements ResolverInterface {
   }
 
   /**
-   * [fetchData description]
+   * Fetch config data.
    *
-   * @return [type] [description]
+   * @return mixed
    */
   public function fetchData() {
-    require_once DRUPAL_ROOT . '/sites/all/libraries/spyc/Spyc.php';
-    return spyc_load_file($this->getPath());
+    return at_config_read_yml($this->getPath());
   }
 }

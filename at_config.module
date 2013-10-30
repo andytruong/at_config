@@ -29,3 +29,14 @@ function at_config($module, $id = 'config', $refresh = FALSE) {
 function at_config_go_api() {
   return array('api' => '1.0');
 }
+
+/**
+ * Read YAML file.
+ *
+ * @param  string $path Path to yaml file.
+ * @return mixed
+ */
+function at_config_read_yml($path) {
+  require_once DRUPAL_ROOT . '/sites/all/libraries/spyc/Spyc.php';
+  return spyc_load_file($path);
+}
