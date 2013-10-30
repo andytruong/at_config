@@ -1,3 +1,8 @@
+AT Config
+=======
+
+[![Build Status](https://secure.travis-ci.org/andytruong/at_config.png?branch=7.x-1.x)](http://travis-ci.org/andytruong/at_config)
+
 This module introduce an other way for Drupal configuration, which is inspired
 by Symfony2 framework.
 
