@@ -16,10 +16,10 @@ class Resolver implements ResolverInterface {
    * @return [type] [description]
    */
   public function getPath() {
-    if ($path = $this->getOverridePath($this->config->getId(), $this->config->module)) {
+    if ($path = $this->getOverridePath($this->config->getId(), $this->config->getModule())) {
       return $path;
     }
-    return $this->getOriginalPath($this->config->getId(), $this->config->module);
+    return $this->getOriginalPath($this->config->getId(), $this->config->getModule());
   }
 
   /**
@@ -29,10 +29,10 @@ class Resolver implements ResolverInterface {
   public function getOriginalPath() {
     $config_id = $this->config->getId();
     $path .= DRUPAL_ROOT . '/' . conf_path();
-    if (module_exists($this->config->module)) {
+    if (module_exists($this->config->getModule())) {
       $config_id = trim($config_id, '/');
-      $config_id = empty($config_id) ? $this->config->module : $config_id;
-      $path = DRUPAL_ROOT . '/' . drupal_get_path('module', $this->config->module);
+      $config_id = empty($config_id) ? $this->config->getModule() : $config_id;
+      $path = DRUPAL_ROOT . '/' . drupal_get_path('module', $this->config->getModule());
     }
     $config_id = trim(str_replace('.', '/', $config_id), '/');
     $path .= '/config/' . $config_id . '.yml';
