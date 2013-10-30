@@ -28,7 +28,7 @@ class Resolver implements ResolverInterface {
    */
   public function getOriginalPath() {
     $config_id = $this->config->getId();
-    $path .= DRUPAL_ROOT . '/' . conf_path();
+    $path = DRUPAL_ROOT . '/' . conf_path();
     if (module_exists($this->config->getModule())) {
       $config_id = trim($config_id, '/');
       $config_id = empty($config_id) ? $this->config->getModule() : $config_id;
