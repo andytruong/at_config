@@ -3,18 +3,18 @@ namespace Drupal\at_config;
 
 class Config {
   /**
+   * Module name.
+   *
+   * @var string
+   */
+  private $module;
+
+  /**
    * Config ID.
    *
    * @var string
    */
   private $id;
-
-  /**
-   * Detected module name.
-   *
-   * @var string
-   */
-  private $module;
 
   /**
    * Resolver.
@@ -29,11 +29,11 @@ class Config {
    */
   private $config_data;
 
-  public function __construct($id, ResolverInterface $resolver) {
+  public function __construct($module, $id = 'config', ResolverInterface $resolver) {
+    $this->module = $module;
     $this->id = $id;
     $resolver->setConfig($this);
     $this->resolver = $resolver;
-    $this->module = $this->resolver->getModule();
   }
 
   public function getId() {

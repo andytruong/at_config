@@ -4,6 +4,7 @@ description = Provide simple config API
 
 core = 7.x
 
+dependencies[] = at_base
 dependencies[] = at_autoload
 
 files[] = tests/at_config.test
