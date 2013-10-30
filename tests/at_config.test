@@ -5,7 +5,7 @@ class At_Config_TestCase extends DrupalUnitTestCase {
     return array(
       'name' => 'AT Config',
       'description' => 'Make sure the at_config() is working correctly.',
-      'group' => 'Andy Truong',
+      'group' => 'AT Config',
     );
   }
 
