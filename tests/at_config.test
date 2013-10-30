@@ -1,6 +1,6 @@
 <?php
 
-class At_Config_TestCase extends DrupalUnitTestCase {
+class At_Config_TestCase extends DrupalWebTestCase {
   public function getInfo() {
     return array(
       'name' => 'AT Config',
