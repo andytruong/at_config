@@ -1,8 +1,8 @@
 name = AT Config
 version = 7.x-1.0-dev
 description = Provide simple config API
-
 core = 7.x
+package = Andy Truong
 
 dependencies[] = at_base
 dependencies[] = at_autoload
