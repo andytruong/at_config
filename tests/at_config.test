@@ -38,7 +38,10 @@ class At_Config_TestCase extends DrupalWebTestCase {
     }
 
     // Test import data
-    // $imported_data = at_config('atest_config', '/import_resources')->get('imported_data');
-    // $this->assertEqual($imported_data, 'imported_data');
+    $config = at_config('atest_config', '/import_resources');
+    $this->assertEqual('imported_data', $config->get('imported_data'));
+    $array_data = $config->get('array_data');
+    $this->assertEqual('A',   $array_data['a']);
+    $this->assertEqual('CCC', $array_data['c']);
   }
 }
