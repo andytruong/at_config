@@ -80,4 +80,11 @@ class Config {
 
     return $this->config_data[$key];
   }
+
+  public function getAll() {
+    if (!$this->config_data) {
+      $this->fetchData();
+    }
+    return $this->config_data;
+  }
 }

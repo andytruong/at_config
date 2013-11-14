@@ -24,13 +24,6 @@ function at_config($module, $id = 'config', $refresh = FALSE) {
 }
 
 /**
- * Implements hook_go_api()
- */
-function at_config_go_api() {
-  return array('api' => '1.0');
-}
-
-/**
  * Read YAML file.
  *
  * @param  string $path Path to yaml file.
