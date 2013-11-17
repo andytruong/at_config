@@ -30,6 +30,10 @@ class Config {
   private $config_data;
 
   public function __construct($module, $id = 'config', ResolverInterface $resolver) {
+    if (!module_exists($module) && !drupal_get_path('module', $module)) {
+      throw new \Exception("Invalid module: {$module}");
+    }
+
     $this->module = $module;
     $this->id = $id;
     $resolver->setConfig($this);
