@@ -30,10 +30,17 @@ function at_config($module, $id = 'config', $refresh = FALSE) {
  * @return mixed
  */
 function at_config_read_yml($path) {
+  if (function_exists('yaml_parse')) {
+    return yaml_parse_file($path);
+  }
+
   if (!is_file(DRUPAL_ROOT . '/sites/all/libraries/spyc/Spyc.php')) {
     throw new \RuntimeException('Missing library: spyc');
   }
 
-  require_once DRUPAL_ROOT . '/sites/all/libraries/spyc/Spyc.php';
+  if (!function_exists('spyc_load_file')) {
+    require_once DRUPAL_ROOT . '/sites/all/libraries/spyc/Spyc.php';
+  }
+
   return spyc_load_file($path);
 }
