@@ -53,11 +53,14 @@ class Resolver implements ResolverInterface {
    * @return mixed
    */
   public function fetchData() {
-    $return = $this->fetchFile($this->getPath());
-    return $return;
+    return $this->fetchFile();
   }
 
-  private function fetchFile($path) {
+  private function fetchFile() {
+    if (!$path = $this->getPath()) {
+      return;
+    }
+
     $return = at_config_read_yml($path);
 
     if (empty($return['imports'])) {
